@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="com.install.install.Install"
+        version="1.5.2">
+
+
+    <name>Install</name>
+    <description>Install for cordova plugin</description>
+    <author>Install</author>
+    <keywords>Install</keywords>
+    <license>Apache 2.0 License</license>
+
+    <engines>
+        <engine name="cordova" version=">=3.0"/>
+    </engines>
+
+    <!-- android -->
+    <platform name="android">
+
+
+        <js-module src="www/install.js" name="install">
+            <clobbers target="window.plugins.Install"/>
+        </js-module>
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="InstallPlugin">
+                <param name="android-package" value="com.install.install.InstallPlugin"/>
+            </feature>
+        </config-file>
+
+        <source-file src="src/android/InstallPlugin.java" target-dir="src/com/install/install"/>
+
+    </platform>
+
+</plugin>
