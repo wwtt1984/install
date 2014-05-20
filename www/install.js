@@ -4,7 +4,11 @@
  * @param src
  * @returns {*}
  */
-Install.prototype.InstallApk = function (src) {
-    return cordova.exec(null, null,"InstallPlugin","Install",[src]);
+Install.prototype.InstallApk = function (src,onSuccess, onFail) {
+    return cordova.exec(onSuccess, onFail,"InstallPlugin","Install",[src]);
+};
+
+Install.prototype.OpenApp = function (src,onSuccess, onFail) {
+    return cordova.exec(onSuccess, onFail,"InstallPlugin","OpenApp",[src]);
 };
 module.exports = (new Install());
