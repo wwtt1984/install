@@ -1,12 +1,11 @@
 package com.install.install;
-
 import java.io.File;
 import java.util.List;
-
-import org.apache.cordova.api.Plugin;
-import org.apache.cordova.api.PluginResult;
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
-
+import org.json.JSONException;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -18,33 +17,13 @@ import android.net.Uri;
 
 
 public class InstallPlugin extends CordovaPlugin {
-   @Override
-      public PluginResult execute(String action, JSONArray args, String callbackId) {
-          PluginResult.Status status = PluginResult.Status.OK;
-          if (action.equals("Install")) {
-              try {
-                  openFile(new File(args.getString(0).replaceAll("file://", "")));
-              } catch(Exception e){
-                  return new PluginResult(PluginResult.Status.ERROR, "打开错误");
+
+      public boolean execute(String action, JSONArray data,
+                  CallbackContext callbackContext) throws JSONException {
+              if (action.equals("Install")) {
+                 openFile(new File(data.getString(0).replaceAll("file://", "")));
               }
-          }
-          else if(action.equals("OpenApp")){
-              try
-                  {
-                  if(checkApp(args.getString(0))){
-                      openApp(args.getString(0));
-                  }
-              else{
-                  //Log.d("openApp", "没有应用");
-                  return new PluginResult(PluginResult.Status.ERROR, "没有应用");
-              }
-                  }
-              catch(Exception e){
-                  //Log.d("openApp", "打开错误");
-                  return new PluginResult(PluginResult.Status.ERROR, "错误");
-              }
-          }
-          return new PluginResult(status, "成功");
+              return false;
       }
 
       private void openApp(String packageName) throws NameNotFoundException {
